@@ -1,7 +1,9 @@
 package dto
 
-case class StatisticsHandlerParams(CTL: String,
-                                   LOGIN: String,
-                                   PASS: String,
-                                   CURRENT_CTL_LOADING: Long,
-                                   WF_ID: Int)
+import annotations.Bind
+
+case class StatisticsHandlerParams(@Bind("CTL")                 ctl: String,
+                                   @Bind("LOGIN")               login: String,
+                                   @Bind("PASS")                password: String,
+                                   @Bind("CURRENT_CTL_LOADING") currentCtlLoading: Long,
+                                   @Bind("WF_ID")               wfId: Int)

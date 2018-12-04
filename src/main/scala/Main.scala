@@ -1,4 +1,4 @@
-import dto.{StatisticsHandlerParams, TableNamesCapitalized}
+import dto.{StatisticsHandlerParams, TableNames}
 
 object Main {
 
@@ -6,15 +6,17 @@ object Main {
 
     val argsMap = Utils.args2Map(args)
 
+    println("Args map:\n")
     argsMap.foreach(println)
 
-    val runtimeInitializer = new RuntimeInitializer(argsMap)
+    println("\n\nInitialized classes:\n")
 
-    val tableNames = runtimeInitializer.initialize[TableNamesCapitalized]
-    println(tableNames)
+    val runtimeInitializer = new RuntimeReflectionInitializer(argsMap)
 
     val shParams = runtimeInitializer.initialize[StatisticsHandlerParams]
     println(shParams)
 
+    val tableNames = runtimeInitializer.initialize[TableNames]
+    println(tableNames)
   }
 }
