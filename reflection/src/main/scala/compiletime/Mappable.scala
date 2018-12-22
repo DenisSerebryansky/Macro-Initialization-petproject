@@ -5,7 +5,7 @@ import scala.reflect.macros.blackbox
 
 trait Mappable[T] {
   def toMap(t: T): Map[String, Any]
-  def fromMap(map: Map[String, Any]): T
+  def fromMap(map: Map[String, String]): T
 }
 
 object Mappable {
@@ -22,6 +22,27 @@ object Mappable {
       }
     }
 
+    def getPrimitiveTypeConvertMethod(typeSignature: Type): TermName = {
+      TermName(
+        typeSignature match {
+          case t if t =:= typeOf[Int]     ⇒ "toInt"
+          case t if t =:= typeOf[Long]    ⇒ "toLong"
+          case t if t =:= typeOf[Double]  ⇒ "toDouble"
+          case t if t =:= typeOf[Boolean] ⇒ "toBoolean"
+          case _                          ⇒ "toString"
+        }
+      )
+    }
+
+    def getFieldValueTree(fieldName: String, typeSignature: Type): Tree = {
+      typeSignature match {
+        case optionalType if optionalType <:< typeOf[Option[_]] ⇒
+          q"map.get($fieldName).map(_.${getPrimitiveTypeConvertMethod(optionalType.typeArgs.head)})"
+        case primitiveType ⇒
+          q"map($fieldName).${getPrimitiveTypeConvertMethod(primitiveType)}"
+      }
+    }
+
     val tpe       = weakTypeOf[T]
     val companion = tpe.typeSymbol.companion
 
@@ -31,22 +52,20 @@ object Mappable {
 
     val (toMapParams, fromMapParams) = fields.map { field ⇒
 
-      val name         = field.asTerm.name
-      val key          = name.decodedName.toString
-      val returnType   = tpe.decl(name).typeSignature
-      val annotation   = getAnnotationValue(field.annotations.find(_.tree.tpe =:= typeOf[annotations.Bind]))
-      val annotatedKey = annotation getOrElse key
+      val nameAsTerm          = field.asTerm.name
+      val nameAsString        = nameAsTerm.decodedName.toString
+      val typeSignature       = tpe.decl(nameAsTerm).typeSignature.finalResultType
+      val annotationValue     = getAnnotationValue(field.annotations.find(_.tree.tpe =:= typeOf[annotations.Bind]))
+      val refinedNameAsString = annotationValue getOrElse nameAsString
 
-      println(s"returnType = $returnType")
-
-      (q"$key -> t.$name", q"map($annotatedKey).asInstanceOf[$returnType]")
+      (q"$nameAsString -> t.$nameAsTerm", getFieldValueTree(refinedNameAsString, typeSignature))
 
     }.unzip
 
     c.Expr[Mappable[T]] { q"""
-      new initialization.Mappable[$tpe] {
+      new compiletime.Mappable[$tpe] {
         def toMap(t: $tpe): Map[String, Any] = Map(..$toMapParams)
-        def fromMap(map: Map[String, Any]): $tpe = $companion(..$fromMapParams)
+        def fromMap(map: Map[String, String]): $tpe = $companion(..$fromMapParams)
       }
     """ }
   }
