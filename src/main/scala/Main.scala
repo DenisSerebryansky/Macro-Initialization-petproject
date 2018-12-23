@@ -1,4 +1,4 @@
-import dto.{StatisticsHandlerParams, TableNames}
+import dto.{ConnectionParams, TableNames}
 import reflection.compiletime.MacroInitializer
 
 object Main {
@@ -10,16 +10,17 @@ object Main {
     println("Args map:\n")
     argsMap.foreach(println)
 
-    println("\nInitialized classes:\n")
-
     val initializer = new MacroInitializer(argsMap)
 
+    println("\nPrint parameters from initializer:\n")
     initializer.printParameters(println)
 
-    val shParams   = initializer.init[StatisticsHandlerParams]
-    val tableNames = initializer.init[TableNames]
+    val connectionParams = initializer.init[ConnectionParams]
+    val tableNames       = initializer.init[TableNames]
+
+    println("\nInitialized classes:\n")
 
     println(tableNames)
-    println(shParams)
+    println(connectionParams)
   }
 }

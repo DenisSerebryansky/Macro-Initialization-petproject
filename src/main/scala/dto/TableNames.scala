@@ -2,7 +2,7 @@ package dto
 
 import reflection.annotations.Bind
 
-case class TableNames(@Bind("SOURCE_INTEGRATOR_PAYMENT") integratorPayment : String,
-                      @Bind("SOURCE_DEPOSIT_PD")         depositPd         : String,
-                      @Bind("SOURCE_DEPOSIT_DEPOHIST")   depositDepohist   : String,
-                      @Bind("SOURCE_EVENT_LOG")          eventLog          : String)
+case class TableNames(@Bind("SOURCE_FIRST_TABLE")  firstTable  : String,
+                      @Bind("SOURCE_SECOND_TABLE") secondTable : String,
+                      @Bind("SOURCE_THIRD_TABLE")  thirdTable  : String,
+                      @Bind("SOURCE_FOURTH_TABLE") fourthTable : String)

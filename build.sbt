@@ -8,8 +8,6 @@ dependsOn(reflection)
 
 lazy val reflection = project.in(file("reflection"))
   .settings(
-    scalaVersion := "2.11.8",
-    libraryDependencies ++= Seq(
-      "org.scala-lang" % "scala-reflect" % scalaVersion.value
-    )
+    scalaVersion        := "2.11.8",
+    libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
   )
