@@ -11,7 +11,7 @@ Compile project and publish it (for example) locally:
 sbt publishLocal
 ```
 
-Then you can use it in your projects by adding the following line in library dependencies:
+Then you can use it in your projects by adding the following line in the library dependencies:
 
 ```
 libraryDependencies += "org.serebryansky" % "macro-initialization" % 0.1-SNAPSHOT
@@ -21,7 +21,8 @@ libraryDependencies += "org.serebryansky" % "macro-initialization" % 0.1-SNAPSHO
 
 Lets consider your application has the following arguments list:
 
-`java -jar MyApp.jar SOURCE_FIRST_TABLE=default.first_table SOURCE_SECOND_TABLE=default.second_table SOURCE_THIRD_TABLE=default.third_table SOURCE_FOURTH_TABLE=default.fourth_table CONNECTION_URL=connection_url LOGIN=login PASS=password TIMEOUT=1234 TUNNEL_PORT=111 USE_PROXY=true`
+`java -jar MyApp.jar SOURCE_FIRST_TABLE=default.first_table SOURCE_SECOND_TABLE=default.second_table SOURCE_THIRD_TABLE=default.third_table 
+SOURCE_FOURTH_TABLE=default.fourth_table CONNECTION_URL=connection_url LOGIN=login PASS=password TIMEOUT=1234 TUNNEL_PORT=111 USE_PROXY=true`
 
 In order to conveniently use them, you can group them by case classes.
 First of all, you have to define a case classes which represent parameters group:
@@ -57,13 +58,13 @@ object Main {
 
     val initializer = new MacroInitializer(args)
 
-    println("\nPrint parameters from initializer:\n")
+    println("Print parameters from initializer:")
     initializer.printParameters(println)
 
     val connectionParams = initializer.init[ConnectionParams]
     val tableNames       = initializer.init[TableNames]
 
-    println("\nInitialized classes:\n")
+    println("Initialized classes:")
 
     println(tableNames)
     println(connectionParams)
