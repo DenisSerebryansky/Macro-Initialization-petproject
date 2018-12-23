@@ -7,13 +7,13 @@ Macro initializer allows to group params by entities as case classes.
 
 Compile project and publish it (for example) locally:
 
-```
+```sbtshell
 sbt publishLocal
 ```
 
 Then you can use it in your projects by adding the following line in the library dependencies:
 
-```
+```sbtshell
 libraryDependencies += "org.serebryansky" %% "macro-initialization" % "0.1-SNAPSHOT"
 ```
 
@@ -29,7 +29,7 @@ SOURCE_FOURTH_TABLE=default.fourth_table CONNECTION_URL=connection_url LOGIN=log
 In order to conveniently use them, you can group them by case classes.
 First of all, you have to define case classes which represent parameters groups:
 
-```
+```scala
 import reflection.annotations.Bind
 
 case class ConnectionParams(@Bind("CONNECTION_URL")    url      : String,
@@ -51,7 +51,7 @@ Macro initializer searches for a field value in arguments map firstly by its ann
 
 Then you have to create a `MacroInitializer` instance and use its method `init` in order to instantiate your case class which contains appropriate parameters:
 
-```
+```scala
 import reflection.compiletime.MacroInitializer
 
 object Main {
