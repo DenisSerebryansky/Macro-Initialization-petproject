@@ -21,7 +21,7 @@ libraryDependencies += "org.serebryansky" % "macro-initialization" % 0.1-SNAPSHO
 
 Lets consider your application has the following arguments list:
 
-`java -jar MyApp.jar SOURCE_FIRST_TABLE=default.first_table SOURCE_SECOND_TABLE=default.second_table SOURCE_THIRD_TABLE=default.third_table 
+`java -jar MyApp.jar SOURCE_FIRST_TABLE=default.first_table SOURCE_SECOND_TABLE=default.second_table SOURCE_THIRD_TABLE=default.third_table  
 SOURCE_FOURTH_TABLE=default.fourth_table CONNECTION_URL=connection_url LOGIN=login PASS=password TIMEOUT=1234 TUNNEL_PORT=111 USE_PROXY=true`
 
 In order to conveniently use them, you can group them by case classes.
