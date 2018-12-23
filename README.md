@@ -14,7 +14,7 @@ sbt publishLocal
 Then you can use it in your projects by adding the following line in the library dependencies:
 
 ```
-libraryDependencies += "org.serebryansky" % "macro-initialization" % 0.1-SNAPSHOT
+libraryDependencies += "org.serebryansky" %% "macro-initialization" % "0.1-SNAPSHOT"
 ```
 
 ### Usage example
@@ -27,7 +27,7 @@ SOURCE_FOURTH_TABLE=default.fourth_table CONNECTION_URL=connection_url LOGIN=log
 ```
 
 In order to conveniently use them, you can group them by case classes.
-First of all, you have to define a case classes which represent parameters group:
+First of all, you have to define case classes which represent parameters groups:
 
 ```
 import reflection.annotations.Bind
@@ -94,3 +94,12 @@ Initialized classes:
 TableNames(default.first_table,default.second_table,default.third_table,default.fourth_table)
 ConnectionParams(connection_url,login,password,1234,Some(111),true)
 ```
+
+Currently macro initializer can initialize case classes with fields of the following types:
+  
+  1. Int;
+  2. Long;
+  3. Double;
+  4. Boolean;
+  5. String;
+  6. Option[T], where T is primitive type (1 - 5).
