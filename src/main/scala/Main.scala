@@ -5,12 +5,7 @@ object Main {
 
   def main(args: Array[String]): Unit = {
 
-    val argsMap = Utils.args2Map(args)
-
-    println("Args map:\n")
-    argsMap.foreach(println)
-
-    val initializer = new MacroInitializer(argsMap)
+    val initializer = new MacroInitializer(args)
 
     println("\nPrint parameters from initializer:\n")
     initializer.printParameters(println)

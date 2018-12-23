@@ -1,6 +1,12 @@
 package reflection.compiletime
 
-class MacroInitializer(argsMap: Map[String, String]) {
+class MacroInitializer(args: Array[String]) {
+
+  val argsMap: Map[String, String] = args2Map
+
+  private def args2Map: Map[String, String] = {
+    args.map { arg ⇒ val splitted = arg.split('='); splitted.head → splitted.last }.toMap
+  }
 
   def init[T: Mappable]: T = implicitly[Mappable[T]].fromMap(argsMap)
 

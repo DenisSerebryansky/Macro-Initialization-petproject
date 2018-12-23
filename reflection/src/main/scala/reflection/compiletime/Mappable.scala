@@ -1,7 +1,5 @@
 package reflection.compiletime
 
-import reflection.annotations
-
 import scala.language.experimental.macros
 import scala.reflect.macros.blackbox
 
@@ -57,7 +55,7 @@ object Mappable {
       val nameAsTerm          = field.asTerm.name
       val nameAsString        = nameAsTerm.decodedName.toString
       val typeSignature       = tpe.decl(nameAsTerm).typeSignature.finalResultType
-      val annotationValue     = getAnnotationValue(field.annotations.find(_.tree.tpe =:= typeOf[annotations.Bind]))
+      val annotationValue     = getAnnotationValue(field.annotations.find(_.tree.tpe =:= typeOf[reflection.annotations.Bind]))
       val refinedNameAsString = annotationValue getOrElse nameAsString
 
       (q"$nameAsString -> t.$nameAsTerm", getFieldValueTree(refinedNameAsString, typeSignature))
