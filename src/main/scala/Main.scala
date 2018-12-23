@@ -14,10 +14,12 @@ object Main {
 
     val initializer = new MacroInitializer(argsMap)
 
+    initializer.printParameters(println)
+
     val shParams   = initializer.init[StatisticsHandlerParams]
     val tableNames = initializer.init[TableNames]
 
     println(tableNames)
-    println(initializer.toString(shParams))
+    println(shParams)
   }
 }
