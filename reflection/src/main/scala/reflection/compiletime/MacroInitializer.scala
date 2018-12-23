@@ -1,4 +1,4 @@
-package compiletime
+package reflection.compiletime
 
 class MacroInitializer(map: Map[String, String]) {
 

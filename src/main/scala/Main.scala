@@ -1,5 +1,5 @@
-import compiletime.MacroInitializer
 import dto.{StatisticsHandlerParams, TableNames}
+import reflection.compiletime.MacroInitializer
 
 object Main {
 

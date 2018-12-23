@@ -1,6 +1,7 @@
-package runtime
+package reflection.runtime
 
-import annotations.Bind
+import reflection.annotations.Bind
+
 import scala.reflect.runtime.universe._
 
 class RuntimeReflectionInitializer(argsMap: Map[String, String]) {

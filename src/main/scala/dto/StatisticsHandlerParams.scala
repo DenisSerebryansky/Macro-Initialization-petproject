@@ -1,6 +1,6 @@
 package dto
 
-import annotations.Bind
+import reflection.annotations.Bind
 
 case class StatisticsHandlerParams(@Bind("CTL")                 ctl               : String,
                                    @Bind("LOGIN")               login             : String,

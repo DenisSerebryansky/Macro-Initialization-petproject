@@ -1,4 +1,6 @@
-package compiletime
+package reflection.compiletime
+
+import reflection.annotations
 
 import scala.language.experimental.macros
 import scala.reflect.macros.blackbox
@@ -63,7 +65,7 @@ object Mappable {
     }.unzip
 
     c.Expr[Mappable[T]] { q"""
-      new compiletime.Mappable[$tpe] {
+      new reflection.compiletime.Mappable[$tpe] {
         def toMap(t: $tpe): Map[String, Any] = Map(..$toMapParams)
         def fromMap(map: Map[String, String]): $tpe = $companion(..$fromMapParams)
       }

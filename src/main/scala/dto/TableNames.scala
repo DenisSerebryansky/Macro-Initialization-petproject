@@ -1,6 +1,6 @@
 package dto
 
-import annotations.Bind
+import reflection.annotations.Bind
 
 case class TableNames(@Bind("SOURCE_INTEGRATOR_PAYMENT") integratorPayment : String,
                       @Bind("SOURCE_DEPOSIT_PD")         depositPd         : String,
