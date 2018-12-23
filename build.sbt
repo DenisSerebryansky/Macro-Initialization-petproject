@@ -1,13 +1,9 @@
-name := "Initialization"
+name := "Macro Initialization"
 
-version := "0.1"
+organization := "org.serebryansky"
+
+version := "0.1-SNAPSHOT"
 
 scalaVersion := "2.11.8"
 
-dependsOn(reflection)
-
-lazy val reflection = project.in(file("reflection"))
-  .settings(
-    scalaVersion        := "2.11.8",
-    libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
-  )
+libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
